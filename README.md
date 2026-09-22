@@ -1,88 +1,116 @@
-# FloatChat 🌊 – AI-Powered ARGO Data Explorer
+# 🌊 FloatChat — AI-Powered ARGO Ocean Data Explorer
 
-FloatChat is an **AI-powered conversational interface** for exploring ARGO float oceanographic data. It allows users to query, explore, and visualize oceanographic information using natural language.
+<p align="center">
+  <b>Natural Language • AI Querying • ARGO Ocean Data • Interactive Visualization</b>
+</p>
 
----
+<p align="center">
+  An AI-powered conversational interface for exploring and visualizing ARGO float oceanographic data using natural language.
+</p>
 
-## 📝 Features
+<p align="center">
 
-- **Chatbot-style interface** with **ChatGPT-style bubbles**  
-- **Floating input** at the bottom for easy conversation  
-- **Interactive visualizations**:  
-  - Float locations on a map  
-  - Pressure and other parameter time-series  
-- **Backend**:  
-  - PostgreSQL for structured ARGO data  
-  - ChromaDB for vector search and metadata retrieval  
-  - Retrieval-Augmented Generation (RAG) for natural language query handling  
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector_DB-FF6B35?style=for-the-badge)
+![Plotly](https://img.shields.io/badge/Plotly-Visualization-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)
+![HuggingFace](https://img.shields.io/badge/HuggingFace-Transformers-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)
 
----
-
-## 💻 Tech Stack
-
-- **Python 3.x**  
-- **Streamlit** – Frontend dashboard and chat interface  
-- **Plotly & Leaflet** – Interactive plots and maps  
-- **PostgreSQL** – Structured ARGO dataset  
-- **ChromaDB** – Vector database for semantic search  
-- **Flan-T5 / Local LLM** – Query interpretation  
+</p>
 
 ---
 
-## 🚀 Demo Queries
+## 🌊 Overview
 
-Try the following queries in the chat interface:
+**FloatChat** is an AI-powered conversational data exploration application designed to make **ARGO oceanographic data easier to query and understand**.
 
-1. Show me the temperature and pressure profiles of ARGO floats near the equator.  
-2. Compare salinity levels in the Arabian Sea and Bay of Bengal over the last 6 months.  
-3. What are the nearest ARGO floats to latitude 10°N and longitude 75°E?  
-4. Show me pressure vs depth for floats in the Indian Ocean.  
-5. Plot the pressure trends of ARGO floats in March 2023.  
+Instead of requiring users to manually write SQL queries or navigate complex datasets, FloatChat provides a conversational interface where users can ask questions about oceanographic data using natural language.
 
----
+The application combines:
 
-## 🗂 Project Structure
+- 🤖 Local language-model based query interpretation
+- 🗄️ PostgreSQL for structured ARGO data
+- 🧠 ChromaDB for semantic/vector-based retrieval
+- 💬 Streamlit conversational interface
+- 📊 Interactive Plotly visualizations
+- 🌍 Geographic visualization of ARGO float locations
+- 📈 Oceanographic parameter analysis
 
-floatchat/
-├─ front_end/ # Streamlit app and CSS
-├─ utils/ # Visualization utilities
-├─ backend.py # LLM query handling and RAG
-├─ db_config.py # PostgreSQL & ChromaDB connections
-├─ requirements.txt # Python dependencies
-├─ .env # Environment variables
-
-yaml
-Copy code
+The project was developed as a **hackathon-oriented proof of concept** for conversational exploration of ARGO data.
 
 ---
 
-## ⚡ How to Run
+# 🎯 Problem Statement
 
-1. Activate your virtual environment:
-& D:/my_project/venv/Scripts/Activate.ps1
-Run the Streamlit app:
+Oceanographic datasets can contain large amounts of structured information that is difficult to explore without technical knowledge.
 
-bash
-Copy code
-cd D:\floatchat
-streamlit run front_end/app.py
-Open in your browser: http://localhost:8501/
+Users may want to ask questions such as:
 
-📌 Notes
-Demo uses a subset of 500 ARGO floats for speed.
+> "Show the average salinity near the equator."
 
-Designed for internal hackathon PoC.
+or:
 
-Fully functional chat + inline visualizations for Indian Ocean ARGO dataset.
+> "Show me the ARGO floats in the Indian Ocean."
 
-🔗 Future Work
-Full ARGO dataset integration
+Traditional database systems require users to understand:
 
-Additional BGC and satellite data
+- Database schemas
+- SQL syntax
+- Column names
+- Geographic filtering
+- Data visualization tools
 
-Enhanced RAG pipeline for advanced queries
+This creates a barrier for researchers, students, and other users who want to explore ocean data without writing database queries manually.
 
-Improved UI/UX and multi-modal visualizations
+---
 
-📄 License
-This README is **hackathon-ready**, shows all the features, instructions, and tech stack, and looks professional for HR viewing.  
+# 💡 Proposed Solution
+
+FloatChat introduces a conversational interface between the user and the ARGO dataset.
+
+The user enters a natural-language question.
+
+The system then:
+
+1. Receives the user's question.
+2. Sends the question to the AI query-processing pipeline.
+3. Generates a PostgreSQL query.
+4. Corrects known column-name and date formatting issues.
+5. Executes the query against PostgreSQL.
+6. Queries ChromaDB for semantic retrieval.
+7. Returns the results through the Streamlit interface.
+8. Generates interactive visualizations from ARGO data.
+
+This creates a workflow where users can interact with oceanographic data through natural language rather than directly writing SQL.
+
+---
+
+# ✨ Key Features
+
+## 💬 Conversational Interface
+
+FloatChat provides a chatbot-style interface designed around natural-language interaction.
+
+Features include:
+
+- Chat-style user and AI messages
+- Session-based conversation history
+- Floating input field
+- AI processing indicator
+- Automatic scrolling
+- Dedicated Chat and About pages
+
+---
+
+## 🤖 AI-Assisted Query Processing
+
+The backend uses a local **FLAN-T5 Base** model through Hugging Face Transformers.
+
+The model is prompted to generate PostgreSQL queries from natural-language questions.
+
+Example:
+
+```text
+User:
+Show average salinity near the equator in March 2025
